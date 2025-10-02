@@ -1,8 +1,26 @@
+@keyframes move-background {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(var(--bg-size), var(--bg-size));
+  }
+}
+
 body {
   font-family: 'Poppins', sans-serif;
-  /* A deep slate base with a subtle lighter radial gradient from the top center */
+  --bg-size: 200px;
   background-color: #0f172a; /* slate-900 */
-  background-image: radial-gradient(ellipse 50% 80% at 50% -20%, rgba(51, 65, 85, 0.5), transparent);
+  background-image:
+    radial-gradient(ellipse 50% 80% at 50% -20%, rgba(51, 65, 85, 0.5), transparent),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(255, 255, 255, 0.01) 10px,
+      rgba(255, 255, 255, 0.01) 20px
+    );
+  animation: move-background 20s linear infinite;
 }
 
 .fade-in-element {
@@ -18,3 +36,31 @@ body {
 
 .delay-200 { transition-delay: 200ms; }
 .delay-400 { transition-delay: 400ms; }
+
+.service-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.1), transparent 20%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.service-card:hover::before {
+  opacity: 1;
+}

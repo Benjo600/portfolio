@@ -42,4 +42,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const fadeInObserver = new IntersectionObserver(observerCallback, observerOptions);
 
   fadeInElements.forEach(el => fadeInObserver.observe(el));
+
+  // Interactive card hover effect
+  const serviceCards = document.querySelectorAll('.service-card');
+  serviceCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    });
+  });
 });
